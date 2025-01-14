@@ -1,8 +1,15 @@
+# Synchronization at workflow level
+
+Tested in argo: 
+  v3.6.2
+
 ```bash
 export SERVICE_ACCOUNT=argo-workflow
 export NAMESPACE=argo
-kubectl apply -n $NAMESPACE -f https://raw.githubusercontent.com/G0erman/hello-argo-workflows/refs/heads/master/hello_argo_workflows/syncronization/my-config.yaml
-argo submit --serviceaccount $SERVICE_ACCOUNT --watch https://raw.githubusercontent.com/G0erman/hello-argo-workflows/refs/heads/master/hello_argo_workflows/syncronization/synchronization-wf-level.yaml
+curl -O https://raw.githubusercontent.com/G0erman/hello-argo-workflows/refs/heads/master/hello_argo_workflows/syncronization/my-config.yaml
+curl -O https://raw.githubusercontent.com/G0erman/hello-argo-workflows/refs/heads/master/hello_argo_workflows/syncronization/synchronization-wf-level.yaml
+kubectl apply -n $NAMESPACE -f my-config.yaml
+argo submit --serviceaccount $SERVICE_ACCOUNT --watch synchronization-wf-level.yaml
 ```
 
 ```bash
