@@ -6,6 +6,10 @@ spec:
   entrypoint: loop-example
   templates:
   - name: loop-example
+    inputs:
+      parameters:
+      - name: os
+        default: Linux
     dag:
       tasks:
       - name: print-message-loop
@@ -14,6 +18,8 @@ spec:
           parameters:
           - name: message
             value: "{{item}}"
+          - name: os
+            value: "{{inputs.parameters.os}}-{{item}}"
         withItems:
         - hello world
         - goodbye world
@@ -22,9 +28,10 @@ spec:
     inputs:
       parameters:
       - name: message
+      - name: os
       - name: age
         default: 36
     container:
       image: busybox
       command: [echo]
-      args: ["{{inputs.parameters.message}}-{{inputs.parameters.age}}"]
+      args: ["{{inputs.parameters.message}}-{{inputs.parameters.age}}-{{inputs.parameters.os}}"]
